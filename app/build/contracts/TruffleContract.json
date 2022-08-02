@@ -1,0 +1,85 @@
+{
+  "contractName": "TruffleContract",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.15+commit.e14f2714\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/TruffleContract.sol\":\"TruffleContract\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/TruffleContract.sol\":{\"keccak256\":\"0xaa8e3b8eb4a586173df55acf88424e799b804168090058c4eb86997d6328a885\",\"urls\":[\"bzz-raw://81382e1124fd8740980256621e0b15f0770274afabe56f8b1c2e4394a4b8a35c\",\"dweb:/ipfs/QmdnGpSnuNiX8EVAQ6atkeWSiHKLbh1zmLE6YyXgUWXhJk\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220f516756754026a3344ba071f5733c21680a88bf7df2fe64fc349def6e50a40c664736f6c634300080f0033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220f516756754026a3344ba071f5733c21680a88bf7df2fe64fc349def6e50a40c664736f6c634300080f0033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "75:31:1:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "75:31:1:-:0;;;;;",
+  "source": "//PDX-License-Identifier: <SPDX-License>\npragma solidity >=0.8.0 <0.9.0;\n\n\ncontract TruffleContract {\n  \n}\n",
+  "sourcePath": "/Users/andrejbatarilo/Desktop/course-project-eth/app/contracts/TruffleContract.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/TruffleContract.sol",
+    "exportedSymbols": {
+      "TruffleContract": [
+        35
+      ]
+    },
+    "id": 36,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 34,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.8",
+          ".0",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "41:31:1"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "TruffleContract",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 35,
+        "linearizedBaseContracts": [
+          35
+        ],
+        "name": "TruffleContract",
+        "nameLocation": "84:15:1",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 36,
+        "src": "75:31:1",
+        "usedErrors": []
+      }
+    ],
+    "src": "41:66:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.15+commit.e14f2714.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xe315af865e444f12F97E5d8424976721894FA4d4",
+      "transactionHash": "0x9a6be17d01ebc0b80185639a68d2132a76b2300ca75a1592e16a6503210a49f7"
+    }
+  },
+  "schemaVersion": "3.4.8",
+  "updatedAt": "2022-08-01T13:50:59.264Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
