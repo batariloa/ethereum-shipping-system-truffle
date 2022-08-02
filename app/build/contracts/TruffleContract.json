@@ -7,22 +7,22 @@
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
-  "sourceMap": "75:31:1:-:0;;;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "75:31:1:-:0;;;;;",
+  "sourceMap": "75:31:2:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "75:31:2:-:0;;;;;",
   "source": "//PDX-License-Identifier: <SPDX-License>\npragma solidity >=0.8.0 <0.9.0;\n\n\ncontract TruffleContract {\n  \n}\n",
-  "sourcePath": "/Users/andrejbatarilo/Desktop/course-project-eth/app/contracts/TruffleContract.sol",
+  "sourcePath": "/home/dre/Documents/ether-node/ethereum-shipping-system-truffle/app/contracts/TruffleContract.sol",
   "ast": {
     "absolutePath": "project:/contracts/TruffleContract.sol",
     "exportedSymbols": {
       "TruffleContract": [
-        35
+        170
       ]
     },
-    "id": 36,
+    "id": 171,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 34,
+        "id": 169,
         "literals": [
           "solidity",
           ">=",
@@ -33,7 +33,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "41:31:1"
+        "src": "41:31:2"
       },
       {
         "abstract": false,
@@ -42,20 +42,20 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 35,
+        "id": 170,
         "linearizedBaseContracts": [
-          35
+          170
         ],
         "name": "TruffleContract",
-        "nameLocation": "84:15:1",
+        "nameLocation": "84:15:2",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 36,
-        "src": "75:31:1",
+        "scope": 171,
+        "src": "75:31:2",
         "usedErrors": []
       }
     ],
-    "src": "41:66:1"
+    "src": "41:66:2"
   },
   "compiler": {
     "name": "solc",
@@ -65,12 +65,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xe315af865e444f12F97E5d8424976721894FA4d4",
-      "transactionHash": "0x9a6be17d01ebc0b80185639a68d2132a76b2300ca75a1592e16a6503210a49f7"
+      "address": "0x8bB9AbC7133E6f5b5975b5da3feEDD0B66A9dCF0",
+      "transactionHash": "0x8b766cb216427d6e04582687a93a0ef5facb62aa4417a7f15aed5a2a6f423774"
     }
   },
   "schemaVersion": "3.4.8",
-  "updatedAt": "2022-08-01T13:50:59.264Z",
+  "updatedAt": "2022-08-02T14:36:55.176Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

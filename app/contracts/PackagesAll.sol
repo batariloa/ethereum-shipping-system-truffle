@@ -7,15 +7,17 @@ contract PackagesAll {
   
 
   struct Package{
-    uint32 id;
+    uint32 senderId;
     address owner;
     address receiver;
+    bytes32 userId;
     bytes32 description;
+    bool isPaid;
+    bool isReceived;
   }
 
   struct UserPackages  {
     Package[] packages;
-    int16 count;
 
   }
   mapping (address=>UserPackages) userPackages;
@@ -34,22 +36,40 @@ uint32[] memory array = new uint32[](packages.length);
 
 for (uint i = 0; i < packages.length; i++) {
     Package memory member = packages[i];
-    array[i] = member.id;
+    array[i] = member.senderId;
 }
 
 return array;
 }
 
 
-function addPackage(address receiver, uint32 id) public {
 
-Package memory package =  Package({id: id, receiver:receiver, description:'test', owner:msg.sender});
+function addPackageFree(bytes32 userId, uint32 senderId, bytes32 description) public {
+
+Package memory package =  Package({senderId: senderId, receiver:address(0), description:description, owner:msg.sender, isPaid:false, userId: userId, isReceived: false});
 
 userPackages[msg.sender].packages.push(package);
 
 }
 
+function addPackagePaid(bytes32 userId, uint32 senderId, bytes32 description, address receiver ) public {
+
+  Package memory package =  
+  Package({
+     senderId: senderId,
+     receiver:receiver, 
+     description:description, 
+     owner:msg.sender, 
+     isPaid:false, 
+     userId: userId, 
+     isReceived:false});
+  
+  userPackages[msg.sender].packages.push(package);
+  
+  }
+
 function getOne() public returns(uint) {
+
 
 Package[] memory packages = userPackages[msg.sender].packages;
 return packages.length;

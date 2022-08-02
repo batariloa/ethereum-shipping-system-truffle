@@ -1,12 +1,15 @@
-import Web3 from 'web3'
+const Web3 = require('web3')
+const {initWeb3} = require("../web3/functions")
 
-import configuration from '../build/contracts/Migrations.json'
-const CONTRACT_ADRESS = configuration
 
 const getAllShippings = async (req, res) => {
     
-    res.send('Got all the shippings')
+    initWeb3()
+
+    res.send('yep')
 }
+
+
 
 const createShipping = async (req, res) => {
     
