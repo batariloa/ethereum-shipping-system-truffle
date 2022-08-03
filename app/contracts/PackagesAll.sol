@@ -46,7 +46,11 @@ return array;
 
 
 
-function addPackageFree( bytes32 packageId,bytes32 senderId, bytes32 receiverAddress, bytes32 description) public {
+function addPackageFree( 
+  bytes32 packageId,
+  bytes32 senderId, 
+  bytes32 receiverAddress, 
+  bytes32 description) public {
 
 Package memory package =  Package({packageId:packageId, senderId: senderId,  receiverAddress: receiverAddress, description:description, owner:msg.sender,  isReceived: false});
 

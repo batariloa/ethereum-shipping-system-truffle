@@ -4,6 +4,8 @@ var app = express();
 const path = require("path");
 const { ethers } = require("ethers");
 
+const Package = require('../model/Package')
+
 var Web3 = require('web3');
 var rpcProvider = 'http://0.0.0.0:7545';
 const provider = new ethers.providers.JsonRpcProvider(rpcProvider)
@@ -40,8 +42,42 @@ await packageContractInstance.callStatic.getOne().then((result) =>{
 })
 }
 
+const addShipping = async (package)=>{
 
+
+    const  PackageContract   = require('../build/contracts/PackagesAll.json')
+    const networkId = await web3.eth.net.getId();
+    console.log(' do ovde?')
+    const packageContractInstance = new ethers.Contract( PackageContract.networks[networkId].address,PackageContract.abi, signer);
+    
+    
+    console.log('stigao do ovde')
+
+    if (typeof package !== Package) {
+        throw new TypeError('TypeError for package')
+    }
+
+    var packageId = ethers.utils.formatBytes32String(package._id)
+    var senderId =ethers.utils.formatBytes32String(package.user)
+    var address = ethers.utils.formatBytes32String(package.toAddress)
+    var description = ethers.utils.formatBytes32String(package.description)
+    
+    
+    await packageContractInstance
+        .addPackageFree({
+            packageId: packageId,
+            senderId: senderId,
+            receiverAddress: address,
+            description: description
+        })
+        .then((result) => {
+
+        console.log('result is', result)
+    })
+
+    }
 
 module.exports = {
-    initWeb3
+    initWeb3,
+    addShipping
 }

@@ -10,19 +10,19 @@
   "sourceMap": "75:31:2:-:0;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "75:31:2:-:0;;;;;",
   "source": "//PDX-License-Identifier: <SPDX-License>\npragma solidity >=0.8.0 <0.9.0;\n\n\ncontract TruffleContract {\n  \n}\n",
-  "sourcePath": "/home/dre/Documents/ether-node/ethereum-shipping-system-truffle/app/contracts/TruffleContract.sol",
+  "sourcePath": "/Users/andrejbatarilo/Desktop/ethereum-shipping/ethereum-shipping-system-truffle/app/contracts/TruffleContract.sol",
   "ast": {
     "absolutePath": "project:/contracts/TruffleContract.sol",
     "exportedSymbols": {
       "TruffleContract": [
-        170
+        212
       ]
     },
-    "id": 171,
+    "id": 213,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 169,
+        "id": 211,
         "literals": [
           "solidity",
           ">=",
@@ -42,15 +42,15 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 170,
+        "id": 212,
         "linearizedBaseContracts": [
-          170
+          212
         ],
         "name": "TruffleContract",
         "nameLocation": "84:15:2",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 171,
+        "scope": 213,
         "src": "75:31:2",
         "usedErrors": []
       }
@@ -65,12 +65,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x5352f6576Fa10479286f1F15f3aC5c7CbaF30fb9",
-      "transactionHash": "0xd6d44a279b0245b9692a212f9bb035f1851dae8f09194106ac21c18544e1b15a"
+      "address": "0x9310646E3DA008557cc7939d0c603E85133394cA",
+      "transactionHash": "0x0053399954afef472a606ec506df7f5a0f4b9e5769e144fc9a0e966ac0888592"
     }
   },
   "schemaVersion": "3.4.8",
-  "updatedAt": "2022-08-03T09:31:37.660Z",
+  "updatedAt": "2022-08-03T17:21:06.747Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
