@@ -1,5 +1,4 @@
-const Web3 = require('web3')
-const {initWeb3} = require("../web3/functions")
+const {initWeb3} = require("../ether/functions")
 
 
 const getAllShippings = async (req, res) => {

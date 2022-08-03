@@ -3,7 +3,9 @@ const router = express.Router()
 
 const { getAllShippings } = require('../controllers/shippingController')
 
-router.route('/').get(getAllShippings)
+const checkPermission = require('../util/checkPermissions')
+
+router.route('/').get(checkPermission, getAllShippings)
 
 
 module.exports = router
