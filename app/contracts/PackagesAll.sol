@@ -2,8 +2,6 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 contract PackagesAll {
- 
-
   
 
   struct Package{
@@ -28,10 +26,10 @@ contract PackagesAll {
 
   }
 
- function getMyPackages(bytes32 userId) public returns(bytes32[] memory) {
+ function getMyPackages(bytes32 userId) public view returns(bytes32[] memory) {
    
 
-//paketi za jednu postu
+//paketi za jednog korisnika
 UserPackages storage userPackagesTemp = userPackages[userId];
 
 bytes32[] memory array = new bytes32[](userPackagesTemp.count);
@@ -52,7 +50,9 @@ function addPackageFree(
   bytes32 receiverAddress, 
   bytes32 description) public {
 
-Package memory package =  Package({packageId:packageId, senderId: senderId,  receiverAddress: receiverAddress, description:description, owner:msg.sender,  isReceived: false});
+Package memory package =  Package({
+  packageId:packageId, 
+senderId: senderId,  receiverAddress: receiverAddress, description:description, owner:msg.sender,  isReceived: false});
 
 userPackages[senderId].packages[packageId] = package;
 userPackages[senderId].index.push(packageId);
