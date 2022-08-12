@@ -11,7 +11,7 @@ const { BadRequestError } = require("../error");
 var rpcProvider = 'http://0.0.0.0:7545';
 const provider = new ethers.providers.JsonRpcProvider(rpcProvider)
 
-const privateKey = 'aa6d782f666fae3102693951f271ec18645b463d2d5c0ef737a1bf364d8b699a'
+const privateKey = 'c9f1ea2e33b739f7c0c472ed646ac22a99c10916b2725afb3fe732019ca01a13'
 
 var web3Provider = new Web3.providers.HttpProvider(rpcProvider);
 var web3 = new Web3(web3Provider);
@@ -55,13 +55,16 @@ const addShipping = async (package, userId)=>{
     const packageContractInstance = new ethers.Contract( PackageContract.networks[networkId].address,PackageContract.abi, signer);
     
     
-    console.log('stigao do ovde')
+    console.log('stigao do ovde', package)
 
     if (!package._id || !package.user || !package.toAddress || !package.description) {
         throw new BadRequestError('Missing required fields')
     }
 
-    var packageId = ethers.utils.formatBytes32String(package._id)
+    console.log(' packaaage is ', package)
+    var packageId = ethers.utils.formatBytes32String(package._id.toString())
+
+    console.log('package is ', packageId)
     var senderId = ethers.utils.formatBytes32String(userId)
     console.log("pravim paket za user id ", senderId)
 
@@ -108,10 +111,43 @@ const getMyPackages = async (userId)=>{
     console.log('stigao do kraja, ', packages)
     
     return packages
+}
+    
+
+const setReceived = async (packageId, userId, value)=>{
+
+
+
+    const  PackageContract   = require('../build/contracts/PackagesAll.json')
+    const networkId = await web3.eth.net.getId();
+    console.log(' do ovde?')
+    const packageContractInstance = new ethers.Contract( PackageContract.networks[networkId].address,PackageContract.abi, signer);
+    
+    
+
+    if (!packageId || !userId || !value) {
+        throw new BadRequestError('Missing required fields')
     }
+
+    var packageId = ethers.utils.formatBytes32String(packageId)
+    var senderId = ethers.utils.formatBytes32String(userId)
+    
+ 
+    
+    
+    await packageContractInstance
+        .setReceived(
+            senderId,
+            packageId,
+            value
+            
+        )
+  
+}
 
 module.exports = {
     initWeb3,
     addShipping,
-    getMyPackages
+    getMyPackages,
+    setReceived
 }

@@ -1,9 +1,11 @@
 const {
     initWeb3,
     addShipping,
-    getMyPackages
+    getMyPackages,
+    setReceived
 } = require("../ether/functions")
 const { ethers, AbiCoder } = require("ethers");
+var uuid = require('uuid');
 
 const Package = require('../model/Package')
 const AllErrors = require('../error/')
@@ -18,7 +20,11 @@ const getAllShippings = async (req, res) => {
 
 
 const createShipping = async (req, res) => {
+    
     const userId = req.user.id
+    const packageId = uuid.v1();
+
+
     if (!userId) {
         console.log("user ", req.user)
         throw new AllErrors.BadRequestError('Not authenticated')
@@ -35,7 +41,7 @@ const createShipping = async (req, res) => {
 
 
     console.log('Made this package, ', package)
-    res.send('Shipping created')
+    res.send(`Shipping created ${package}`)
 }
 
 const getMyPackagesController = async (req, res) => {
@@ -46,16 +52,55 @@ const getMyPackagesController = async (req, res) => {
     }
    
     const ship = await getMyPackages(userId)
-    
-    // returnBytesArray is of type Uint8Array where each 32 bytes encodes a single value
+    console.log('CODED SHIP IS', ship)
 
-    console.log('Got these packages, ', ship)
-    res.send(`Got these packages `)
+
+
+    const packageObjects = []
+    
+    for (var i = 0; i < ship[0].length; i++){
+        
+        const packageObjectSingle = {
+            id: ethers.utils.parseBytes32String(ship[0][i]),
+            user: ethers.utils.parseBytes32String(ship[1][i]),
+            toAddress: ethers.utils.parseBytes32String(ship[2][i]),
+            description: ethers.utils.parseBytes32String(ship[3][i]),
+            owner: ship[4][i],
+            isReceived: ship[5][i]
+         
+        }
+
+        packageObjects.push(packageObjectSingle)
+    }
+
+    console.log('Got these packages, ', packageObjects)
+    res.send(`Got these packages ${packageObjects.toString()} `)
 }
 
+
+const setReceivedController = async (req, res) => {
+    const userId = req.user.id
+    if (!userId) {
+        console.log("user ", req.user)
+        throw new AllErrors.BadRequestError('Not authenticated')
+    }
+    const { packageId, received } = req.body
+    
+    if (!packageId || !received) {
+        throw new AllErrors.BadRequestError('Package ID or received value not provided.')
+
+    }
+    
+    const result = await setReceived(packageId, userId, received)
+
+
+    console.log('Set result: , ', result)
+    res.send(`Set result ${result}`)
+}
 
 module.exports = {
     getAllShippings,
     createShipping,
-    getMyPackagesController
+    getMyPackagesController,
+    setReceivedController
 }
