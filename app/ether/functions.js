@@ -145,9 +145,34 @@ const setReceived = async (packageId, userId, value)=>{
   
 }
 
+const getOnePackage = async (userId, packageId)=>{
+
+
+    const  PackageContract   = require('../build/contracts/PackagesAll.json')
+    const networkId = await web3.eth.net.getId();
+    console.log(' do ovde?')
+    const packageContractInstance = new ethers.Contract( PackageContract.networks[networkId].address,PackageContract.abi, signer);
+   
+    var userIdFormatted = ethers.utils.formatBytes32String(userId)
+    var packageIdFormatted = ethers.utils.formatBytes32String(userId)
+
+ 
+    
+    console.log('stigao do 67')
+    
+    console.log('Getting packages for user ', userIdFormatted)
+    const packages =   packageContractInstance
+        .getOne(userIdFormatted, packageIdFormatted)
+    
+    console.log('stigao do kraja, ', packages)
+    
+    return packages
+        
+    }
 module.exports = {
     initWeb3,
     addShipping,
     getMyPackages,
-    setReceived
+    setReceived,
+    getOnePackage
 }

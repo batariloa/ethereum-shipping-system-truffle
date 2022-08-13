@@ -94,11 +94,30 @@ function setReceived(bytes32 userId,bytes32 packageId, bool value) public{
 }
 
 
-function getOne(bytes32 userId) public view returns(uint) {
+function getOne(bytes32 userId, bytes32 packageId) public view returns(
+  bytes32, 
+  bytes32,
+  bytes32,
+  bytes32,
+  address,
+  bool
+  ) {
+
+    Package memory package = userPackages[userId].packages[packageId];  
 
 
+    bytes32 receiverAddress = package.receiverAddress;
+    bytes32 description = package.description;
+    address owner = package.owner;
+    bool isReceived = package.isReceived;
 
-return userPackages[userId].count;
+return (
+  packageId,
+  userId,
+  receiverAddress, 
+  description, 
+  owner, 
+  isReceived);
 }
 
 

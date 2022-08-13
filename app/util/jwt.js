@@ -27,7 +27,7 @@ const attachCookiesToResponse = ({res, user, refreshToken}) =>{
 console.log('refreshtoken is ', refreshToken,)
     res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        expires: new Date(Date.now() + oneDay),
+        expires: new Date(Date.now() + oneDay * 30),
         secure: process.env.NODE_ENV === 'production',
         signed:true
 

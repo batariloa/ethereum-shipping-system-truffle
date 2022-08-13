@@ -2,10 +2,11 @@ const {
     initWeb3,
     addShipping,
     getMyPackages,
-    setReceived
+    setReceived,
+    getOnePackage
 } = require("../ether/functions")
+
 const { ethers, AbiCoder } = require("ethers");
-var uuid = require('uuid');
 
 const Package = require('../model/Package')
 const AllErrors = require('../error/')
@@ -18,11 +19,9 @@ const getAllShippings = async (req, res) => {
 }
 
 
-
 const createShipping = async (req, res) => {
     
     const userId = req.user.id
-    const packageId = uuid.v1();
 
 
     if (!userId) {
@@ -74,7 +73,9 @@ const getMyPackagesController = async (req, res) => {
     }
 
     console.log('Got these packages, ', packageObjects)
-    res.send(`Got these packages ${packageObjects.toString()} `)
+
+    const returnMessage = JSON.stringify(packageObjects)
+    res.send(`Got these packages ${returnMessage} `)
 }
 
 
@@ -98,9 +99,36 @@ const setReceivedController = async (req, res) => {
     res.send(`Set result ${result}`)
 }
 
+const getOnePackageController = async (req, res) => {
+    
+    const {  id:packageId } = req.params
+    const userId = req.user.id
+
+    console.log('ues', userId, packageId)
+
+    if (!userId || !packageId) {
+        throw new AllErrors.BadRequestError('Please provide all required fields')
+    }
+
+    const package = await getOnePackage(userId, packageId)
+
+    const returnObject = {
+            id: ethers.utils.parseBytes32String(package[0]),
+            user: ethers.utils.parseBytes32String(package[1]),
+            toAddress: ethers.utils.parseBytes32String(package[2]),
+            description: ethers.utils.parseBytes32String(package[3]),
+            owner: package[4],
+            isReceived: package[5]
+    }
+    console.log('Returned value, ', package)
+
+    res.status(200).json(returnObject)
+}
+
 module.exports = {
     getAllShippings,
     createShipping,
     getMyPackagesController,
-    setReceivedController
+    setReceivedController,
+    getOnePackageController
 }

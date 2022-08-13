@@ -6,6 +6,8 @@ const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 require('express-async-errors')
 
+const errorHandler = require('./middleware/error-handler')
+
 
 const port = process.env.PORT
 app.use(express.static(__dirname + '/public'));
@@ -18,6 +20,7 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "public"));
 
 
+
 app.use(express.json())
 app.use(morgan('tiny'))
 app.use(cookieParser(process.env.JWT_SECRET))
@@ -25,6 +28,8 @@ app.use(cookieParser(process.env.JWT_SECRET))
 
 app.use('/api/v1/',shippingRouter)
 app.use('/api/v1/auth', authRouter)  
+
+app.use(errorHandler)
 
 const connectDB = require('./db/connect')
 
