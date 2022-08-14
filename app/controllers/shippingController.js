@@ -23,6 +23,8 @@ const createShipping = async (req, res) => {
     
     const userId = req.user.id
 
+    console.log('Is user present?', req.user)
+
 
     if (!userId) {
         console.log("user ", req.user)
@@ -35,7 +37,7 @@ const createShipping = async (req, res) => {
 
     }
     
-    const package = await Package.create({toAddress, description, user:userId})
+    const package = await Package.create({ toAddress, description, user: userId })
     const shipping = await addShipping(package, userId)
 
 
@@ -65,7 +67,8 @@ const getMyPackagesController = async (req, res) => {
             toAddress: ethers.utils.parseBytes32String(ship[2][i]),
             description: ethers.utils.parseBytes32String(ship[3][i]),
             owner: ship[4][i],
-            isReceived: ship[5][i]
+            isReceived: ship[5][i],
+            shipmentDate:ethers.utils.parseBytes32String(ship[6][i])
          
         }
 
@@ -104,8 +107,6 @@ const getOnePackageController = async (req, res) => {
     const {  id:packageId } = req.params
     const userId = req.user.id
 
-    console.log('ues', userId, packageId)
-
     if (!userId || !packageId) {
         throw new AllErrors.BadRequestError('Please provide all required fields')
     }
@@ -113,12 +114,13 @@ const getOnePackageController = async (req, res) => {
     const package = await getOnePackage(userId, packageId)
 
     const returnObject = {
-            id: ethers.utils.parseBytes32String(package[0]),
-            user: ethers.utils.parseBytes32String(package[1]),
-            toAddress: ethers.utils.parseBytes32String(package[2]),
-            description: ethers.utils.parseBytes32String(package[3]),
-            owner: package[4],
-            isReceived: package[5]
+        id: ethers.utils.parseBytes32String(package[0]),
+        user: ethers.utils.parseBytes32String(package[1]),
+        toAddress: ethers.utils.parseBytes32String(package[2]),
+        description: ethers.utils.parseBytes32String(package[3]),
+        owner: package[4],
+        isReceived: package[5],
+        shipmentDate: package[6]
     }
     console.log('Returned value, ', package)
 

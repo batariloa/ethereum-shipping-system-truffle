@@ -21,8 +21,19 @@ const PackageSchema = mongoose.Schema({
     isDelivered: {
         type: Boolean,
         required: true,
-        default: false
+        default: false,  
+  
+    },
+    shipmentDate: {
+        type: String,
+        required: true,
+        default:  ()=>dateWithouTime()
     }
 })
+
+function dateWithouTime() {
+    
+    return new Date().toLocaleDateString()
+}
 
 module.exports = mongoose.model('Package', PackageSchema)

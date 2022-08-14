@@ -11,7 +11,7 @@ const { BadRequestError } = require("../error");
 var rpcProvider = 'http://0.0.0.0:7545';
 const provider = new ethers.providers.JsonRpcProvider(rpcProvider)
 
-const privateKey = 'c9f1ea2e33b739f7c0c472ed646ac22a99c10916b2725afb3fe732019ca01a13'
+const privateKey = '43978dd8d1a98cc5ed737a4ce372538886da6546f9fa4d91ecc8b64057f3888b'
 
 var web3Provider = new Web3.providers.HttpProvider(rpcProvider);
 var web3 = new Web3(web3Provider);
@@ -54,39 +54,33 @@ const addShipping = async (package, userId)=>{
     console.log(' do ovde?')
     const packageContractInstance = new ethers.Contract( PackageContract.networks[networkId].address,PackageContract.abi, signer);
     
-    
-    console.log('stigao do ovde', package)
-
+    console.log('Package situation ', package.shipmentDate)
     if (!package._id || !package.user || !package.toAddress || !package.description) {
         throw new BadRequestError('Missing required fields')
     }
 
-    console.log(' packaaage is ', package)
     var packageId = ethers.utils.formatBytes32String(package._id.toString())
-
-    console.log('package is ', packageId)
     var senderId = ethers.utils.formatBytes32String(userId)
-    console.log("pravim paket za user id ", senderId)
-
     var address = ethers.utils.formatBytes32String(package.toAddress)
     var description = ethers.utils.formatBytes32String(package.description)
+    console.log('But the date is ', date)
 
+    var date = ethers.utils.formatBytes32String(package.shipmentDate.toString())
+
+    console.log('But the date is ', date)
  
-    
-    console.log('stigao do 67')
     
     await packageContractInstance
         .addPackageFree(
              packageId,
              senderId,
              address,
-             description
-        )
+             description,
+             date)
         .then((result) => {
 
         console.log('result is', result)
     })
- console.log('stigao do kraja')
 }
     
 
@@ -101,14 +95,10 @@ const getMyPackages = async (userId)=>{
    
     var sender = ethers.utils.formatBytes32String(userId)
  
-    
-    console.log('stigao do 67')
-    
-    console.log('Getting packages for user ', sender)
+
     const packages =   packageContractInstance
         .getMyPackages(sender)
     
-    console.log('stigao do kraja, ', packages)
     
     return packages
 }
@@ -148,26 +138,20 @@ const setReceived = async (packageId, userId, value)=>{
 const getOnePackage = async (userId, packageId)=>{
 
 
-    const  PackageContract   = require('../build/contracts/PackagesAll.json')
+    const PackageContract   = require('../build/contracts/PackagesAll.json')
     const networkId = await web3.eth.net.getId();
     console.log(' do ovde?')
     const packageContractInstance = new ethers.Contract( PackageContract.networks[networkId].address,PackageContract.abi, signer);
    
     var userIdFormatted = ethers.utils.formatBytes32String(userId)
     var packageIdFormatted = ethers.utils.formatBytes32String(userId)
-
- 
-    
-    console.log('stigao do 67')
     
     console.log('Getting packages for user ', userIdFormatted)
     const packages =   packageContractInstance
         .getOne(userIdFormatted, packageIdFormatted)
     
-    console.log('stigao do kraja, ', packages)
     
     return packages
-        
     }
 module.exports = {
     initWeb3,

@@ -5,23 +5,21 @@ const Token = require('../model/Token')
 
 const authenticateUser = async(req,res,next) =>{
 
+//take tokens from 
 const {refreshToken, accessToken} = req.signedCookies
-console.log(' first, what the token ')
 
 try{
-console.log('access ', accessToken)
+console.log('Access token: ', accessToken)
 
 //in case access token is valid
 if(accessToken){
     const payload = isTokenValid(accessToken)
-
-    console.log('payload is ', payload)
+    //extract user data from token
     req.user = payload.user
     return next();
 }
 
-//in case access token is not valid
-
+//in case access token is not valid, check refresh token
 const payload = isTokenValid(refreshToken)
 
 const existingToken = await Token.findOne({
@@ -33,7 +31,7 @@ if(!existingToken || !existingToken?.isValid){
     throw new CustomError.UnauthenticatedError('Authentication invalid')
 }
 
-attachCookiesToResponse({res,user:payload.user})
+attachCookiesToResponse(res,payload.user)
 req.user = payload.user
 
 } catch(error){
