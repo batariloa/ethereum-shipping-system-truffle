@@ -19,9 +19,11 @@ createHash
 } =  require('../util')
 
 const register = async (req, res) => {
+  
   const { email, name, password } = req.body;
 
   const emailAlreadyExists = await User.findOne({ email });
+
   if (emailAlreadyExists) {
     throw new CustomError.BadRequestError('Email already exists');
   }

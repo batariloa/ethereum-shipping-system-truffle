@@ -8,14 +8,21 @@ const authenticateUser = async(req,res,next) =>{
 //take tokens from 
 const {refreshToken, accessToken} = req.signedCookies
 
+
+    console.log('PAYLOAD IS ')
+    
 try{
 console.log('Access token: ', accessToken)
-
+    
 //in case access token is valid
 if(accessToken){
     const payload = isTokenValid(accessToken)
+
+    console.log("PAYLOAD IS ", payload)
     //extract user data from token
     req.user = payload.user
+    req.user.role = payload.role 
+
     return next();
 }
 
@@ -32,7 +39,8 @@ if(!existingToken || !existingToken?.isValid){
 }
 
 attachCookiesToResponse(res,payload.user)
-req.user = payload.user
+    req.user = payload.user
+   
 
 } catch(error){
     console.log('error ', error)
@@ -55,5 +63,6 @@ next();
   
 
 module.exports = {
-    authenticateUser
+    authenticateUser,
+    authorizePermissions
 }

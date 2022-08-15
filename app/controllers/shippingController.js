@@ -11,6 +11,7 @@ const { ethers, AbiCoder } = require("ethers");
 const Package = require('../model/Package')
 const AllErrors = require('../error/');
 const { StatusCodes } = require("http-status-codes");
+const User = require("../model/User");
 
 const getAllShippings = async (req, res) => {
     
@@ -22,20 +23,18 @@ const getAllShippings = async (req, res) => {
 
 const createShipping = async (req, res) => {
     
-    const userId = req.user.id
 
-    console.log('Is user present?', req.user)
-
-
-    if (!userId) {
-        console.log("user ", req.user)
-        throw new AllErrors.BadRequestError('Not authenticated')
-    }
-    const { toAddress, description } = req.body
+   
+    const { toAddress, description, userId } = req.body
     
-    if (!toAddress || !description) {
-        throw new AllErrors.BadRequestError('Address or description not provided.')
+    if (!toAddress || !description || !userId) {
+        throw new AllErrors.BadRequestError('User ID, Shipping address or description not provided.')
+    }
 
+    const userExists = await User.find({ _id: userId });
+
+    if (!userExists) {
+        throw new AllErrors.BadRequestError('No such user')
     }
     
     const package = await Package.create({ toAddress, description, user: userId })
