@@ -9,7 +9,8 @@ const {
 const { ethers, AbiCoder } = require("ethers");
 
 const Package = require('../model/Package')
-const AllErrors = require('../error/')
+const AllErrors = require('../error/');
+const { StatusCodes } = require("http-status-codes");
 
 const getAllShippings = async (req, res) => {
     
@@ -77,8 +78,7 @@ const getMyPackagesController = async (req, res) => {
 
     console.log('Got these packages, ', packageObjects)
 
-    const returnMessage = JSON.stringify(packageObjects)
-    res.send(`Got these packages ${returnMessage} `)
+    res.status(StatusCodes.OK).json({ packageObjects })
 }
 
 
@@ -99,7 +99,7 @@ const setReceivedController = async (req, res) => {
 
 
     console.log('Set result: , ', result)
-    res.send(`Set result ${result}`)
+    res.json(`Set result ${result}`)
 }
 
 const getOnePackageController = async (req, res) => {
@@ -107,12 +107,14 @@ const getOnePackageController = async (req, res) => {
     const {  id:packageId } = req.params
     const userId = req.user.id
 
+
     if (!userId || !packageId) {
         throw new AllErrors.BadRequestError('Please provide all required fields')
     }
 
     const package = await getOnePackage(userId, packageId)
 
+    console.log('Package id in controller: ', packageId)
     const returnObject = {
         id: ethers.utils.parseBytes32String(package[0]),
         user: ethers.utils.parseBytes32String(package[1]),

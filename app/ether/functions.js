@@ -67,7 +67,7 @@ const addShipping = async (package, userId)=>{
 
     var date = ethers.utils.formatBytes32String(package.shipmentDate.toString())
 
-    console.log('But the date is ', date)
+    console.log('Package id is  ',packageId)
  
     
     await packageContractInstance
@@ -86,8 +86,6 @@ const addShipping = async (package, userId)=>{
 
 const getMyPackages = async (userId)=>{
 
-
-
     const  PackageContract   = require('../build/contracts/PackagesAll.json')
     const networkId = await web3.eth.net.getId();
     console.log(' do ovde?')
@@ -95,8 +93,7 @@ const getMyPackages = async (userId)=>{
    
     var sender = ethers.utils.formatBytes32String(userId)
  
-
-    const packages =   packageContractInstance
+    const packages = packageContractInstance
         .getMyPackages(sender)
     
     
@@ -106,13 +103,10 @@ const getMyPackages = async (userId)=>{
 
 const setReceived = async (packageId, userId, value)=>{
 
-
-
     const  PackageContract   = require('../build/contracts/PackagesAll.json')
     const networkId = await web3.eth.net.getId();
-    console.log(' do ovde?')
-    const packageContractInstance = new ethers.Contract( PackageContract.networks[networkId].address,PackageContract.abi, signer);
-    
+
+    const packageContractInstance = new ethers.Contract(PackageContract.networks[networkId].address, PackageContract.abi, signer);
     
 
     if (!packageId || !userId || !value) {
@@ -121,8 +115,6 @@ const setReceived = async (packageId, userId, value)=>{
 
     var packageId = ethers.utils.formatBytes32String(packageId)
     var senderId = ethers.utils.formatBytes32String(userId)
-    
- 
     
     
     await packageContractInstance
@@ -137,20 +129,24 @@ const setReceived = async (packageId, userId, value)=>{
 
 const getOnePackage = async (userId, packageId)=>{
 
-
     const PackageContract   = require('../build/contracts/PackagesAll.json')
     const networkId = await web3.eth.net.getId();
-    console.log(' do ovde?')
-    const packageContractInstance = new ethers.Contract( PackageContract.networks[networkId].address,PackageContract.abi, signer);
+
+    const packageContractInstance =
+        new ethers.Contract(
+        PackageContract.networks[networkId].address,
+        PackageContract.abi, 
+        signer
+        );
    
     var userIdFormatted = ethers.utils.formatBytes32String(userId)
-    var packageIdFormatted = ethers.utils.formatBytes32String(userId)
+    var packageIdFormatted = ethers.utils.formatBytes32String(packageId)
     
     console.log('Getting packages for user ', userIdFormatted)
-    const packages =   packageContractInstance
+    const packages = await packageContractInstance
         .getOne(userIdFormatted, packageIdFormatted)
     
-    
+    console.log('WHAT PACKAGES HAVE BEEN RETURNED/??:', packages)
     return packages
     }
 module.exports = {
