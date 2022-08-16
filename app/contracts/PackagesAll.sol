@@ -82,6 +82,8 @@ function addPackageFree(
   bytes32 description,
   bytes32 shipmentDate) public {
 
+
+
 Package memory package =  Package({
   packageId:packageId, 
   senderId: senderId,  
@@ -100,6 +102,8 @@ userPackages[senderId].count+=1;
 
 function setReceived(bytes32 userId,bytes32 packageId, bool value) public{
 
+
+require(msg.sender == userPackages[userId].packages[packageId].owner);
  userPackages[userId].packages[packageId].isReceived = value;
   
 

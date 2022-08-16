@@ -11,7 +11,7 @@ const { BadRequestError } = require("../error");
 var rpcProvider = 'http://0.0.0.0:7545';
 const provider = new ethers.providers.JsonRpcProvider(rpcProvider)
 
-const privateKey = '43978dd8d1a98cc5ed737a4ce372538886da6546f9fa4d91ecc8b64057f3888b'
+const privateKey = '7fa201d0625b75abb598e64d3168dd99cffc5cfcac418aa6e8f1ade7aa7cbc6d'
 
 var web3Provider = new Web3.providers.HttpProvider(rpcProvider);
 var web3 = new Web3(web3Provider);
@@ -47,14 +47,15 @@ await packageContractInstance.callStatic.getOne().then((result) =>{
 
 const addShipping = async (package, userId)=>{
 
-
-
     const  PackageContract   = require('../build/contracts/PackagesAll.json')
     const networkId = await web3.eth.net.getId();
-    console.log(' do ovde?')
-    const packageContractInstance = new ethers.Contract( PackageContract.networks[networkId].address,PackageContract.abi, signer);
+
+    const packageContractInstance = 
+    new ethers.Contract(
+        PackageContract.networks[networkId].address,
+        PackageContract.abi, 
+        signer);
     
-    console.log('Package situation ', package.shipmentDate)
     if (!package._id || !package.user || !package.toAddress || !package.description) {
         throw new BadRequestError('Missing required fields')
     }
@@ -63,12 +64,7 @@ const addShipping = async (package, userId)=>{
     var senderId = ethers.utils.formatBytes32String(userId)
     var address = ethers.utils.formatBytes32String(package.toAddress)
     var description = ethers.utils.formatBytes32String(package.description)
-    console.log('But the date is ', date)
-
     var date = ethers.utils.formatBytes32String(package.shipmentDate.toString())
-
-    console.log('Package id is  ',packageId)
- 
     
     await packageContractInstance
         .addPackageFree(

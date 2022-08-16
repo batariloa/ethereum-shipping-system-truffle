@@ -8,8 +8,6 @@ const authenticateUser = async(req,res,next) =>{
 //take tokens from 
 const {refreshToken, accessToken} = req.signedCookies
 
-
-    console.log('PAYLOAD IS ')
     
 try{
 console.log('Access token: ', accessToken)
@@ -21,7 +19,7 @@ if(accessToken){
     console.log("PAYLOAD IS ", payload)
     //extract user data from token
     req.user = payload.user
-    req.user.role = payload.role 
+
 
     return next();
 }
@@ -40,6 +38,8 @@ if(!existingToken || !existingToken?.isValid){
 
 attachCookiesToResponse(res,payload.user)
     req.user = payload.user
+
+    console.log('wellll user is now ', req.user)
    
 
 } catch(error){
@@ -54,6 +54,7 @@ const authorizePermissions = (...roles) =>{
 
 return (req,res,next)=>{
 
+console.log('Roles included in req.user: ', req.user.role)
 if(!roles.includes(req.user.role)){
     throw new CustomError.UnauthorizedError('No permission to access this route')
 }

@@ -1,28 +1,28 @@
 {
   "contractName": "TruffleContract",
   "abi": [],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.15+commit.e14f2714\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/TruffleContract.sol\":\"TruffleContract\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/TruffleContract.sol\":{\"keccak256\":\"0xaa8e3b8eb4a586173df55acf88424e799b804168090058c4eb86997d6328a885\",\"urls\":[\"bzz-raw://81382e1124fd8740980256621e0b15f0770274afabe56f8b1c2e4394a4b8a35c\",\"dweb:/ipfs/QmdnGpSnuNiX8EVAQ6atkeWSiHKLbh1zmLE6YyXgUWXhJk\"]}},\"version\":1}",
-  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220f516756754026a3344ba071f5733c21680a88bf7df2fe64fc349def6e50a40c664736f6c634300080f0033",
-  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220f516756754026a3344ba071f5733c21680a88bf7df2fe64fc349def6e50a40c664736f6c634300080f0033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.16+commit.07a7930e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/TruffleContract.sol\":\"TruffleContract\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/TruffleContract.sol\":{\"keccak256\":\"0xaa8e3b8eb4a586173df55acf88424e799b804168090058c4eb86997d6328a885\",\"urls\":[\"bzz-raw://81382e1124fd8740980256621e0b15f0770274afabe56f8b1c2e4394a4b8a35c\",\"dweb:/ipfs/QmdnGpSnuNiX8EVAQ6atkeWSiHKLbh1zmLE6YyXgUWXhJk\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220c0453ab8531ced122edf667abd089ce3513769bb1740b14dce79958c5ebe0ffe64736f6c63430008100033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220c0453ab8531ced122edf667abd089ce3513769bb1740b14dce79958c5ebe0ffe64736f6c63430008100033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
   "sourceMap": "75:31:2:-:0;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "75:31:2:-:0;;;;;",
   "source": "//PDX-License-Identifier: <SPDX-License>\npragma solidity >=0.8.0 <0.9.0;\n\n\ncontract TruffleContract {\n  \n}\n",
-  "sourcePath": "/Users/andrejbatarilo/Desktop/ethereum-shipping/ethereum-shipping-system-truffle/app/contracts/TruffleContract.sol",
+  "sourcePath": "/home/dre/Documents/ether-node/ethereum-shipping-system-truffle/app/contracts/TruffleContract.sol",
   "ast": {
     "absolutePath": "project:/contracts/TruffleContract.sol",
     "exportedSymbols": {
       "TruffleContract": [
-        212
+        424
       ]
     },
-    "id": 213,
+    "id": 425,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 211,
+        "id": 423,
         "literals": [
           "solidity",
           ">=",
@@ -42,15 +42,15 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 212,
+        "id": 424,
         "linearizedBaseContracts": [
-          212
+          424
         ],
         "name": "TruffleContract",
         "nameLocation": "84:15:2",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 213,
+        "scope": 425,
         "src": "75:31:2",
         "usedErrors": []
       }
@@ -59,18 +59,18 @@
   },
   "compiler": {
     "name": "solc",
-    "version": "0.8.15+commit.e14f2714.Emscripten.clang"
+    "version": "0.8.16+commit.07a7930e.Emscripten.clang"
   },
   "networks": {
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xE2eDA28F4320a2E64438804DeA1312e0D20C139C",
-      "transactionHash": "0x8ccef6cc78c20a50a5050e41f4b504aee016ee70d5a2d3c8f4f1c9387d6fcc05"
+      "address": "0xfCBc082C1195d3f0BDfBEefB6DFCc3543b4FC3A9",
+      "transactionHash": "0x8ae23e15f717577222f78f188739608c98f643713659d18433ea820974cb6d2b"
     }
   },
   "schemaVersion": "3.4.8",
-  "updatedAt": "2022-08-14T20:44:33.898Z",
+  "updatedAt": "2022-08-16T16:28:09.229Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

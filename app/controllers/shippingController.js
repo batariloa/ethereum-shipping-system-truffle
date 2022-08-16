@@ -82,14 +82,10 @@ const getMyPackagesController = async (req, res) => {
 
 
 const setReceivedController = async (req, res) => {
-    const userId = req.user.id
-    if (!userId) {
-        console.log("user ", req.user)
-        throw new AllErrors.BadRequestError('Not authenticated')
-    }
-    const { packageId, received } = req.body
+
+    const { packageId, received, userId } = req.body
     
-    if (!packageId || !received) {
+    if (!packageId || !received || !userId) {
         throw new AllErrors.BadRequestError('Package ID or received value not provided.')
 
     }
@@ -103,8 +99,8 @@ const setReceivedController = async (req, res) => {
 
 const getOnePackageController = async (req, res) => {
     
-    const {  id:packageId } = req.params
-    const userId = req.user.id
+    const { packageId, userId } = req.params
+ 
 
 
     if (!userId || !packageId) {
