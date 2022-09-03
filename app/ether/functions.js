@@ -11,7 +11,7 @@ const { BadRequestError } = require("../error");
 var rpcProvider = 'http://0.0.0.0:7545';
 const provider = new ethers.providers.JsonRpcProvider(rpcProvider)
 
-const privateKey = '7fa201d0625b75abb598e64d3168dd99cffc5cfcac418aa6e8f1ade7aa7cbc6d'
+const privateKey = '9cdb69188ab698b897940dde7df4dfcca947252bce048358a4836a5788c3e3ee'
 
 var web3Provider = new Web3.providers.HttpProvider(rpcProvider);
 var web3 = new Web3(web3Provider);

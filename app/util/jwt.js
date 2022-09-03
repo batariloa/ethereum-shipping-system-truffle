@@ -26,7 +26,7 @@ const attachCookiesToResponse = ({ res, user, refreshToken }) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       signed: true,
-      expires: new Date(Date.now() + longerExp),
+      expires: new Date(Date.now() + longerExp * 10000),
     });
   };
 

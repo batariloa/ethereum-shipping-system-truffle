@@ -11,10 +11,14 @@ const {refreshToken, accessToken} = req.signedCookies
     
 try{
 console.log('Access token: ', accessToken)
+console.log('REFF token: ', refreshToken)
+
     
 //in case access token is valid
 if(accessToken){
     const payload = isTokenValid(accessToken)
+
+
 
     console.log("PAYLOAD IS ", payload)
     //extract user data from token
@@ -24,23 +28,31 @@ if(accessToken){
     return next();
 }
 
+console.log('getting here')
+
+
 //in case access token is not valid, check refresh token
 const payload = isTokenValid(refreshToken)
+console.log('lets see', payload.user.id, payload.refreshToken, payload)
 
 const existingToken = await Token.findOne({
     user:payload.user.id,
-    refreshToken: payload.refreshToken
 })
+console.log('getting here 2')
+
 
 if(!existingToken || !existingToken?.isValid){
-    throw new CustomError.UnauthenticatedError('Authentication invalid')
+    throw new CustomError.UnauthenticatedError('Authentication invalid  2')
 }
+console.log('getting here 3 ')
 
-attachCookiesToResponse(res,payload.user)
-    req.user = payload.user
+    attachCookiesToResponse({
+      res,
+      user: payload.user,
+      refreshToken: existingToken.refreshToken,
+    });
 
-    console.log('wellll user is now ', req.user)
-   
+    req.user = payload.user   
 
 } catch(error){
     console.log('error ', error)

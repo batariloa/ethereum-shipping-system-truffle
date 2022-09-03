@@ -15,7 +15,7 @@ router.route('/').get(authenticateUser, getAllShippings)
 router.route('/').post(authenticateUser, authorizePermissions('admin'),createShipping)
 router.route('/myPackages').get(authenticateUser, getMyPackagesController)
 router.route('/setReceived').post(authenticateUser, setReceivedController)
-router.route('/:userId/:packageId').get(authenticateUser, getOnePackageController)
+router.route('/:packageId').get(authenticateUser, getOnePackageController)
 
 
 module.exports = router

@@ -13,6 +13,8 @@ const AllErrors = require('../error/');
 const { StatusCodes } = require("http-status-codes");
 const User = require("../model/User");
 
+const {encrypt, decrypt} = require('../util/encryptData')
+
 const getAllShippings = async (req, res) => {
     
     initWeb3()
@@ -20,14 +22,12 @@ const getAllShippings = async (req, res) => {
     res.send('yep')
 }
 
-
 const createShipping = async (req, res) => {
-    
 
-   
-    const { toAddress, description, userId } = req.body
+    const { toAddress, description} = req.body
+    const userId = req.user.id
     
-    if (!toAddress || !description || !userId) {
+    if (!toAddress || !description ) {
         throw new AllErrors.BadRequestError('User ID, Shipping address or description not provided.')
     }
 
@@ -37,11 +37,14 @@ const createShipping = async (req, res) => {
         throw new AllErrors.BadRequestError('No such user')
     }
     
-    const package = await Package.create({ toAddress, description, user: userId })
-    const shipping = await addShipping(package, userId)
+    const toAddressEncrypted = encrypt(toAddress)
+    const descriptionEncrypted = encrypt(description).substring(0,5)
+    console.log('Encrypted data', toAddressEncrypted)
+
+    const package = await Package.create({toAddress:toAddressEncrypted, description, user: req.user.id})
+    const shipping = await addShipping(package, req.user.id)
 
 
-    console.log('Made this package, ', package)
     res.send(`Shipping created ${package}`)
 }
 
@@ -80,7 +83,6 @@ const getMyPackagesController = async (req, res) => {
     res.status(StatusCodes.OK).json({ packageObjects })
 }
 
-
 const setReceivedController = async (req, res) => {
 
     const { packageId, received, userId } = req.body
@@ -99,9 +101,9 @@ const setReceivedController = async (req, res) => {
 
 const getOnePackageController = async (req, res) => {
     
-    const { packageId, userId } = req.params
- 
+    const { packageId } = req.params
 
+    const userId = req.user.id
 
     if (!userId || !packageId) {
         throw new AllErrors.BadRequestError('Please provide all required fields')
@@ -109,11 +111,17 @@ const getOnePackageController = async (req, res) => {
 
     const package = await getOnePackage(userId, packageId)
 
+    const addressValue = ethers.utils.parseBytes32String(package[2])
+console.log("ADRESA JE ", addressValue)
+
+const address =  decrypt(addressValue);
+
+console.log("ADRESA JE ", address)
     console.log('Package id in controller: ', packageId)
     const returnObject = {
         id: ethers.utils.parseBytes32String(package[0]),
         user: ethers.utils.parseBytes32String(package[1]),
-        toAddress: ethers.utils.parseBytes32String(package[2]),
+        toAddress: address,
         description: ethers.utils.parseBytes32String(package[3]),
         owner: package[4],
         isReceived: package[5],

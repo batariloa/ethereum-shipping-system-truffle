@@ -48,7 +48,6 @@ bool[] memory arrayIsReceived = new bool[](userPackagesTemp.count);
 bytes32[] memory arrayDate = new bytes32[](userPackagesTemp.count);
 
 
-
 for (uint i = 0; i < userPackagesTemp.count; i++) {
     Package memory member = userPackagesTemp.packages[userPackagesTemp.index[i]];
     arrayPackageId[i] = member.packageId;
@@ -58,7 +57,6 @@ for (uint i = 0; i < userPackagesTemp.count; i++) {
     arrayOwner[i] = member.owner;
     arrayIsReceived[i] = member.isReceived;
     arrayDate[i] = member.shipmentDate;
-
 }
 
 return (
@@ -69,8 +67,6 @@ return (
   arrayOwner, 
   arrayIsReceived,
   arrayDate);
-
-
 }
 
 
@@ -81,8 +77,6 @@ function addPackageFree(
   bytes32 receiverAddress, 
   bytes32 description,
   bytes32 shipmentDate) public {
-
-
 
 Package memory package =  Package({
   packageId:packageId, 
@@ -102,11 +96,9 @@ userPackages[senderId].count+=1;
 
 function setReceived(bytes32 userId,bytes32 packageId, bool value) public{
 
-
-require(msg.sender == userPackages[userId].packages[packageId].owner);
+ require(msg.sender == userPackages[userId].packages[packageId].owner);
  userPackages[userId].packages[packageId].isReceived = value;
   
-
 }
 
 

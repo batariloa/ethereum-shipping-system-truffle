@@ -4,10 +4,10 @@ require('dotenv').config()
 const path = require("path");
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
+
 require('express-async-errors')
 
 const errorHandler = require('./middleware/error-handler')
-
 
 const port = process.env.PORT
 app.use(express.static(__dirname + '/public'));
