@@ -11,7 +11,7 @@ const { BadRequestError } = require("../error");
 var rpcProvider = 'http://0.0.0.0:7545';
 const provider = new ethers.providers.JsonRpcProvider(rpcProvider)
 
-const privateKey = '9cdb69188ab698b897940dde7df4dfcca947252bce048358a4836a5788c3e3ee'
+const privateKey = process.env.WALLET
 
 var web3Provider = new Web3.providers.HttpProvider(rpcProvider);
 var web3 = new Web3(web3Provider);
@@ -62,8 +62,8 @@ const addShipping = async (package, userId)=>{
 
     var packageId = ethers.utils.formatBytes32String(package._id.toString())
     var senderId = ethers.utils.formatBytes32String(userId)
-    var address = ethers.utils.formatBytes32String(package.toAddress)
-    var description = ethers.utils.formatBytes32String(package.description)
+    var address = package.toAddress
+    var description = package.description
     var date = ethers.utils.formatBytes32String(package.shipmentDate.toString())
     
     await packageContractInstance

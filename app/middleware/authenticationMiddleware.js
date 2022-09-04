@@ -52,27 +52,32 @@ console.log('getting here 3 ')
       refreshToken: existingToken.refreshToken,
     });
 
-    req.user = payload.user   
+console.log('getting here 4 ')
 
+    req.user = payload.user   
+   next();
 } catch(error){
     console.log('error ', error)
     throw new CustomError.UnauthenticatedError('Invalid authentication')
 }
+console.log('getting here 5 ', req.user.role)
 
 
 }
 
-const authorizePermissions = (...roles) =>{
 
-return (req,res,next)=>{
+const authorizePermissions = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      throw new CustomError.UnauthorizedError(
+        'Unauthorized to access this route'
+      );
+    }
+    next();
+  };
 
-console.log('Roles included in req.user: ', req.user.role)
-if(!roles.includes(req.user.role)){
-    throw new CustomError.UnauthorizedError('No permission to access this route')
-}
-
-next();
-}}
+  }
+  
   
 
 module.exports = {

@@ -7,8 +7,8 @@ contract PackagesAll {
   struct Package{
     bytes32 packageId;
     bytes32 senderId;
-    bytes32 receiverAddress;
-    bytes32 description;
+    string receiverAddress;
+    string description;
     address owner;
     bool isReceived;
     bytes32 shipmentDate;
@@ -29,8 +29,8 @@ contract PackagesAll {
  function getMyPackages(bytes32 userId) public view returns(
  bytes32[] memory,
  bytes32[] memory,
- bytes32[] memory,
- bytes32[] memory,
+ string[] memory,
+ string[] memory,
  address[] memory,
  bool[] memory,
  bytes32[] memory
@@ -41,8 +41,8 @@ UserPackages storage userPackagesTemp = userPackages[userId];
 
 bytes32[] memory arrayPackageId = new bytes32[](userPackagesTemp.count);
 bytes32[] memory arraySenderId = new bytes32[](userPackagesTemp.count);
-bytes32[] memory arrayReceiverAddress = new bytes32[](userPackagesTemp.count);
-bytes32[] memory arrayDescription = new bytes32[](userPackagesTemp.count);
+string[] memory arrayReceiverAddress = new string[](userPackagesTemp.count);
+string[] memory arrayDescription = new string[](userPackagesTemp.count);
 address[] memory arrayOwner = new address[](userPackagesTemp.count);
 bool[] memory arrayIsReceived = new bool[](userPackagesTemp.count);
 bytes32[] memory arrayDate = new bytes32[](userPackagesTemp.count);
@@ -74,8 +74,8 @@ return (
 function addPackageFree( 
   bytes32 packageId,
   bytes32 senderId, 
-  bytes32 receiverAddress, 
-  bytes32 description,
+  string memory receiverAddress, 
+  string memory description,
   bytes32 shipmentDate) public {
 
 Package memory package =  Package({
@@ -105,8 +105,8 @@ function setReceived(bytes32 userId,bytes32 packageId, bool value) public{
 function getOne(bytes32 userId, bytes32 packageId) public view returns(
   bytes32, 
   bytes32,
-  bytes32,
-  bytes32,
+  string memory,
+  string memory,
   address,
   bool,
   bytes32
@@ -115,8 +115,8 @@ function getOne(bytes32 userId, bytes32 packageId) public view returns(
     Package memory package = userPackages[userId].packages[packageId];  
 
 
-    bytes32 receiverAddress = package.receiverAddress;
-    bytes32 description = package.description;
+    string memory receiverAddress = package.receiverAddress;
+    string memory description = package.description;
     address owner = package.owner;
     bool isReceived = package.isReceived;
     bytes32 shipmentDate = package.shipmentDate;

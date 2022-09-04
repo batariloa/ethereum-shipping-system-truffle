@@ -38,10 +38,10 @@ const createShipping = async (req, res) => {
     }
     
     const toAddressEncrypted = encrypt(toAddress)
-    const descriptionEncrypted = encrypt(description).substring(0,5)
+    const descriptionEncrypted = encrypt(description)
     console.log('Encrypted data', toAddressEncrypted)
 
-    const package = await Package.create({toAddress:toAddressEncrypted, description, user: req.user.id})
+    const package = await Package.create({toAddress:toAddressEncrypted, description:descriptionEncrypted, user: req.user.id})
     const shipping = await addShipping(package, req.user.id)
 
 
@@ -67,8 +67,8 @@ const getMyPackagesController = async (req, res) => {
         const packageObjectSingle = {
             id: ethers.utils.parseBytes32String(ship[0][i]),
             user: ethers.utils.parseBytes32String(ship[1][i]),
-            toAddress: ethers.utils.parseBytes32String(ship[2][i]),
-            description: ethers.utils.parseBytes32String(ship[3][i]),
+            toAddress:decrypt(ship[2][i]),
+            description: decrypt(ship[3][i]),
             owner: ship[4][i],
             isReceived: ship[5][i],
             shipmentDate:ethers.utils.parseBytes32String(ship[6][i])
