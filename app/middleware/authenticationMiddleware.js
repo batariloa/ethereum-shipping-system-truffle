@@ -33,13 +33,14 @@ console.log('getting here')
 
 //in case access token is not valid, check refresh token
 const payload = isTokenValid(refreshToken)
-console.log('lets see', payload.user.id, payload.refreshToken, payload)
 
+//find token in database
 const existingToken = await Token.findOne({
     user:payload.user.id,
+    refreshToken: payload.refreshToken
 })
-console.log('getting here 2')
 
+//if refresh token doesnt 
 
 if(!existingToken || !existingToken?.isValid){
     throw new CustomError.UnauthenticatedError('Authentication invalid  2')
