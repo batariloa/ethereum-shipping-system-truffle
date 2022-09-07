@@ -85,8 +85,8 @@ const getMyPackagesController = async (req, res) => {
 
 const setReceivedController = async (req, res) => {
 
-    const { packageId, received, userId } = req.body
-    
+    const { packageId, received } = req.body
+    const userId = req.user.id
     if (!packageId || !received || !userId) {
         throw new AllErrors.BadRequestError('Package ID or received value not provided.')
 
@@ -95,8 +95,7 @@ const setReceivedController = async (req, res) => {
     const result = await setReceived(packageId, userId, received)
 
 
-    console.log('Set result: , ', result)
-    res.json(`Set result ${result}`)
+    res.json(`Set received: `, received)
 }
 
 const getOnePackageController = async (req, res) => {

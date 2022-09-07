@@ -1,51 +1,26 @@
-const CustomError = require('../error')
-const {isTokenValid, attachCookiesToResponse} = require('../util')
-const Token = require('../model/Token')
+const CustomError = require('../error');
+const { isTokenValid } = require('../util');
+const Token = require('../model/Token');
+const { attachCookiesToResponse } = require('../util');
+const authenticateUser = async (req, res, next) => {
+  const { refreshToken, accessToken } = req.signedCookies;
 
+  try {
+    if (accessToken) {
+      const payload = isTokenValid(accessToken);
+      req.user = payload.user;
+      return next();
+    }
+    const payload = isTokenValid(refreshToken);
 
-const authenticateUser = async(req,res,next) =>{
+    const existingToken = await Token.findOne({
+      user: payload.user.userId,
+      refreshToken: payload.refreshToken,
+    });
 
-//take tokens from 
-const {refreshToken, accessToken} = req.signedCookies
-
-    
-try{
-console.log('Access token: ', accessToken)
-console.log('REFF token: ', refreshToken)
-
-    
-//in case access token is valid
-if(accessToken){
-    const payload = isTokenValid(accessToken)
-
-
-
-    console.log("PAYLOAD IS ", payload)
-    //extract user data from token
-    req.user = payload.user
-
-
-    return next();
-}
-
-console.log('getting here')
-
-
-//in case access token is not valid, check refresh token
-const payload = isTokenValid(refreshToken)
-
-//find token in database
-const existingToken = await Token.findOne({
-    user:payload.user.id,
-    refreshToken: payload.refreshToken
-})
-
-//if refresh token doesnt 
-
-if(!existingToken || !existingToken?.isValid){
-    throw new CustomError.UnauthenticatedError('Authentication invalid  2')
-}
-console.log('getting here 3 ')
+    if (!existingToken || !existingToken?.isValid) {
+      throw new CustomError.UnauthenticatedError('Authentication Invalid');
+    }
 
     attachCookiesToResponse({
       res,
@@ -53,19 +28,12 @@ console.log('getting here 3 ')
       refreshToken: existingToken.refreshToken,
     });
 
-console.log('getting here 4 ')
-
-    req.user = payload.user   
-   next();
-} catch(error){
-    console.log('error ', error)
-    throw new CustomError.UnauthenticatedError('Invalid authentication')
-}
-console.log('getting here 5 ', req.user.role)
-
-
-}
-
+    req.user = payload.user;
+    next();
+  } catch (error) {
+    throw new CustomError.UnauthenticatedError('Authentication Invalid');
+  }
+};
 
 const authorizePermissions = (...roles) => {
   return (req, res, next) => {
@@ -76,12 +44,9 @@ const authorizePermissions = (...roles) => {
     }
     next();
   };
-
-  }
-  
-  
+};
 
 module.exports = {
-    authenticateUser,
-    authorizePermissions
-}
+  authenticateUser,
+  authorizePermissions,
+};
