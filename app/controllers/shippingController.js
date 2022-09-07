@@ -103,6 +103,7 @@ const getOnePackageController = async (req, res) => {
     const { packageId } = req.params
 
     const userId = req.user.id
+    console.log('user id ',userId )
 
     if (!userId || !packageId) {
         throw new AllErrors.BadRequestError('Please provide all required fields')
@@ -110,18 +111,17 @@ const getOnePackageController = async (req, res) => {
 
     const package = await getOnePackage(userId, packageId)
 
-    const addressValue = ethers.utils.parseBytes32String(package[2])
-console.log("ADRESA JE ", addressValue)
+    const addressValue = package[2]
 
-const address =  decrypt(addressValue);
+    const address = decrypt(addressValue);
+    const descriptionDecrypted = decrypt(package[3])
 
-console.log("ADRESA JE ", address)
     console.log('Package id in controller: ', packageId)
     const returnObject = {
         id: ethers.utils.parseBytes32String(package[0]),
         user: ethers.utils.parseBytes32String(package[1]),
         toAddress: address,
-        description: ethers.utils.parseBytes32String(package[3]),
+        description: descriptionDecrypted,
         owner: package[4],
         isReceived: package[5],
         shipmentDate: package[6]

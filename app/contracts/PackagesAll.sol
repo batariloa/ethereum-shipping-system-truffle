@@ -113,8 +113,6 @@ function getOne(bytes32 userId, bytes32 packageId) public view returns(
   ) {
 
     Package memory package = userPackages[userId].packages[packageId];  
-
-
     string memory receiverAddress = package.receiverAddress;
     string memory description = package.description;
     address owner = package.owner;
