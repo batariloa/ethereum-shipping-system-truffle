@@ -18,7 +18,7 @@ const attachCookiesToResponse = ({ res, user, refreshToken }) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     signed: true,
-    expires: new Date(Date.now() + oneDay),
+    expires: new Date(Date.now() + 3000),
   });
 
   res.cookie('refreshToken', refreshTokenJWT, {
@@ -28,7 +28,18 @@ const attachCookiesToResponse = ({ res, user, refreshToken }) => {
     expires: new Date(Date.now() + longerExp),
   });
 };
+// const attachSingleCookieToResponse = ({ res, user }) => {
+//   const token = createJWT({ payload: user });
 
+//   const oneDay = 1000 * 60 * 60 * 24;
+
+//   res.cookie('token', token, {
+//     httpOnly: true,
+//     expires: new Date(Date.now() + oneDay),
+//     secure: process.env.NODE_ENV === 'production',
+//     signed: true,
+//   });
+// };
 
 module.exports = {
   createJWT,
